@@ -19,7 +19,7 @@ for argv in sys.argv:
     elif argv[0] == '2' and argv[2:] != '':
         password = argv[2:]
     elif argv[0] == '3' and argv[2:] != '':
-        url = argv[2:]
+        url = url + argv[2:]
     elif argv[0] == '4' and argv[2:] != '':
         province = argv[2:]
     elif argv[0] == '5' and argv[2:] != '':
@@ -28,8 +28,6 @@ for argv in sys.argv:
         district = argv[2:]
     elif argv[0] == '7' and argv[2:] != '':
         atschool = argv[2:]
-
-print(url)
         
 try:
     chrome_options = Options()
