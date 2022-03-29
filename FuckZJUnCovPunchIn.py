@@ -19,7 +19,7 @@ for argv in sys.argv:
     elif argv[0] == '2' and argv[1:] != '':
         password = argv[1:]
     elif argv[0] == '3' and argv[1:] != '':
-        url = url + argv[1:]
+        url = argv[1:]
     elif argv[0] == '4' and argv[1:] != '':
         province = argv[1:]
     elif argv[0] == '5' and argv[1:] != '':
