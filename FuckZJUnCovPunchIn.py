@@ -33,7 +33,7 @@ chrome_options = Options()
 chrome_options.add_argument('--headless')
 chrome_options.add_argument('--disable-gpu')
 chrome_options.add_argument('--no-sandbox')
-brower = webdriver.Chrome(executable_path='./chromedriver' ,chrome_options = chrome_options)
+brower = webdriver.Chrome(chrome_options = chrome_options)
 brower.get('https://healthreport.zju.edu.cn/ncov/wap/default/index')
 #登录
 el = brower.find_element_by_id("username")
