@@ -14,20 +14,20 @@ district = '西湖区'
 atschool = 'Yes'
 
 for argv in sys.argv:
-    if argv[0] == '1' and argv[2:] != '':
-        username = argv[2:]
-    elif argv[0] == '2' and argv[2:] != '':
-        password = argv[2:]
-    elif argv[0] == '3' and argv[2:] != '':
-        url = url + argv[2:]
-    elif argv[0] == '4' and argv[2:] != '':
-        province = argv[2:]
-    elif argv[0] == '5' and argv[2:] != '':
-        city = argv[2:]
-    elif argv[0] == '6' and argv[2:] != '':
-        district = argv[2:]
-    elif argv[0] == '7' and argv[2:] != '':
-        atschool = argv[2:]
+    if argv[0] == '1' and argv[1:] != '':
+        username = argv[1:]
+    elif argv[0] == '2' and argv[1:] != '':
+        password = argv[1:]
+    elif argv[0] == '3' and argv[1:] != '':
+        url = url + argv[1:]
+    elif argv[0] == '4' and argv[1:] != '':
+        province = argv[1:]
+    elif argv[0] == '5' and argv[1:] != '':
+        city = argv[1:]
+    elif argv[0] == '6' and argv[1:] != '':
+        district = argv[1:]
+    elif argv[0] == '7' and argv[1:] != '':
+        atschool = argv[1:]
         
 try:
     chrome_options = Options()
