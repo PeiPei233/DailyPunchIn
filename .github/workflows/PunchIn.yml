@@ -33,6 +33,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
+        sudo cp -p ./chromedriver /usr/bin/
         chmod -R 777 /usr/bin/chromedriver
         python ./FuckZJUnCovPunchIn.py 1$${{secrets.USERNAME}} 2$${{secrets.PASSWORD}} 3$${{secrets.URL}} 4$${{secrets.PROVINCE}} 5$${{secrets.CITY}} 6$${{secrets.DISTRICT}} 7$${{secrets.ATSCHOOL}}
         pytest
