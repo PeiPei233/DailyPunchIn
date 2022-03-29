@@ -28,8 +28,6 @@ for argv in sys.argv:
         district = argv[2:]
     elif argv[0] == '7' and argv[2:] != '':
         atschool = argv[2:]
-
-print(url, province, city, district, atschool)
         
 try:
     chrome_options = Options()
