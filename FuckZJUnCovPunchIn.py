@@ -34,7 +34,7 @@ try:
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--no-sandbox')
-    brower = webdriver.Chrome(options = chrome_options, executable_path='/home/peipei/ZJUnCov/chromedriver')
+    brower = webdriver.Chrome(options = chrome_options)
     brower.get('https://healthreport.zju.edu.cn/ncov/wap/default/index')
     #登录
     el = brower.find_element(by=By.ID, value="username")
