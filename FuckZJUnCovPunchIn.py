@@ -69,7 +69,7 @@ try:
     S = Select(el).select_by_value(district)
 
     #选择家人是否有恙
-    el = brower.find_element(by=By.XPATH, value='/html/body/div[1]/div[1]/div/section/div[4]/ul/li[22]/div/div/div[1]/span[1]')
+    el = brower.find_element(by=By.XPATH, value='/html/body/div[1]/div[1]/div/section/div[4]/ul/li[22]/div/div/div[2]/span[1]')
     el.click()
 
     #选择个人承诺
