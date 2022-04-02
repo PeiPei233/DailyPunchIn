@@ -9,7 +9,7 @@ on:
 #   pull_request:
 #     branches: [ main ]
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 23 * * *'
 
 jobs:
   build:
@@ -27,6 +27,7 @@ jobs:
         pip install -r requirements.txt
     - name: Punch In
       run: |
+        sudo dpkg -i google*.deb
         sudo cp -p ./chromedriver /usr/bin/
         chmod -R 777 /usr/bin/chromedriver
         python ./FuckZJUnCovPunchIn.py 1${{secrets.USERNAME}} 2${{secrets.PASSWORD}} 3${{secrets.URL}} 4${{secrets.PROVINCE}} 5${{secrets.CITY}} 6${{secrets.DISTRICT}} 7${{secrets.ATSCHOOL}}
