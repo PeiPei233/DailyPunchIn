@@ -1,5 +1,5 @@
 # DailyPunchIn
-Settings > Secrets > Actions 中添加：
+先Fork给自己，再在自己的对应仓库里 Settings > Secrets > Actions 中添加：
 
  - `USERNAME` 必填，学号
 
