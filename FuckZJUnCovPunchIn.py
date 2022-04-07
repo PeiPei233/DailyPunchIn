@@ -48,32 +48,32 @@ try:
     
     #选择是否在校
     if atschool == 'Yes':
-        el = brower.find_element(by=By.XPATH, value='/html/body/div[1]/div[1]/div/section/div[4]/ul/li[15]/div/div/div[1]/span[1]')
+        el = brower.find_element_by_xpath('/html/body/div[1]/div[1]/div/section/div[4]/ul/li[16]/div/div/div[1]/span[1]')
         el.click()
     else:
-        el = brower.find_element(by=By.XPATH, value='/html/body/div[1]/div[1]/div/section/div[4]/ul/li[15]/div/div/div[2]/span[1]')
+        el = brower.find_element_by_xpath('/html/body/div[1]/div[1]/div/section/div[4]/ul/li[16]/div/div/div[2]/span[1]')
         el.click()
 
     #显示所在地选择框
     brower.execute_script("document.getElementsByName(\"ip\")[0].style.display = 'block';")
 
     #选择位置
-    el = brower.find_element(by=By.XPATH, value='/html/body/div[1]/div[1]/div/section/div[4]/ul/li[20]/div/div/select[1]')
+    el = brower.find_element_by_xpath('/html/body/div[1]/div[1]/div/section/div[4]/ul/li[21]/div/div/select[1]')
     S = Select(el)
     S.select_by_value(province)
 
-    el = brower.find_element(by=By.XPATH, value='/html/body/div[1]/div[1]/div/section/div[4]/ul/li[20]/div/div/select[2]')
+    el = brower.find_element_by_xpath('/html/body/div[1]/div[1]/div/section/div[4]/ul/li[21]/div/div/select[2]')
     S = Select(el).select_by_value(city)
 
-    el = brower.find_element(by=By.XPATH, value='/html/body/div[1]/div[1]/div/section/div[4]/ul/li[20]/div/div/select[3]')
+    el = brower.find_element_by_xpath('/html/body/div[1]/div[1]/div/section/div[4]/ul/li[21]/div/div/select[3]')
     S = Select(el).select_by_value(district)
 
     #选择家人是否有恙
-    el = brower.find_element(by=By.XPATH, value='/html/body/div[1]/div[1]/div/section/div[4]/ul/li[22]/div/div/div[2]/span[1]')
+    el = brower.find_element_by_xpath('/html/body/div[1]/div[1]/div/section/div[4]/ul/li[23]/div/div/div[2]/span[1]')
     el.click()
 
     #选择个人承诺
-    el = brower.find_element(by=By.XPATH, value='/html/body/div[1]/div[1]/div/section/div[4]/ul/li[34]/div/div/div/span[1]')
+    el = brower.find_element_by_xpath('/html/body/div[1]/div[1]/div/section/div[4]/ul/li[35]/div/div/div/span[1]')
     el.click()
 
     #提交
