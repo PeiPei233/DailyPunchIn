@@ -6,12 +6,13 @@ from selenium.webdriver.common.by import By
 import requests
 import sys
 from time import sleep
+from random import random
 
 username = '321'
 password = '123'
 url = 'https://oapi.dingtalk.com/robot/send?access_token='
-latitude = 30.307482568059065
-longtitude = 120.08188799406054
+latitude = 30.307482568059065 + random() * 1e-4
+longtitude = 120.08188799406054 + random() * 1e-4
 atschool = 'Yes'
 
 for argv in sys.argv:
@@ -22,9 +23,9 @@ for argv in sys.argv:
     elif argv[0] == '3' and argv[1:] != '':
         url = argv[1:]
     elif argv[0] == '4' and argv[1:] != '':
-        latitude = float(argv[1:])
+        latitude = float(argv[1:]) + random() * 1e-4
     elif argv[0] == '5' and argv[1:] != '':
-        longtitude = float(argv[1:])
+        longtitude = float(argv[1:]) + random() * 1e-4
     elif argv[0] == '6' and argv[1:] != '':
         atschool = argv[1:]
         
