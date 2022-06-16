@@ -5,13 +5,13 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import requests
 import sys
+from time import sleep
 
 username = '321'
 password = '123'
 url = 'https://oapi.dingtalk.com/robot/send?access_token='
-province = '浙江省'
-city = '杭州市'
-district = '西湖区'
+latitude = 30.307482568059065
+longtitude = 120.08188799406054
 atschool = 'Yes'
 
 for argv in sys.argv:
@@ -22,12 +22,10 @@ for argv in sys.argv:
     elif argv[0] == '3' and argv[1:] != '':
         url = argv[1:]
     elif argv[0] == '4' and argv[1:] != '':
-        province = argv[1:]
+        latitude = float(argv[1:])
     elif argv[0] == '5' and argv[1:] != '':
-        city = argv[1:]
+        longtitude = float(argv[1:])
     elif argv[0] == '6' and argv[1:] != '':
-        district = argv[1:]
-    elif argv[0] == '7' and argv[1:] != '':
         atschool = argv[1:]
         
 try:
@@ -35,54 +33,63 @@ try:
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--no-sandbox')
-    brower = webdriver.Chrome(options = chrome_options)
-    brower.get('https://healthreport.zju.edu.cn/ncov/wap/default/index')
+    driver = webdriver.Chrome(options = chrome_options)
+
+    #给予网页获取地理位置信息的权限
+    driver.execute_cdp_cmd(
+        "Browser.grantPermissions",
+        {
+            "origin": "https://healthreport.zju.edu.cn/ncov/wap/default/index",
+            "permissions": ["geolocation"]
+        },
+    )
+
+    #模拟地理位置信息
+    Map_coordinates = dict({
+        "latitude": latitude,
+        "longitude": longtitude,
+        "accuracy": 100
+    })
+    driver.execute_cdp_cmd("Emulation.setGeolocationOverride", Map_coordinates)
+
+    driver.get('https://healthreport.zju.edu.cn/ncov/wap/default/index')
+    
     #登录
-    el = brower.find_element(by=By.ID, value="username")
+    el = driver.find_element_by_id("username")
     el.send_keys(username)
 
-    el = brower.find_element(by=By.ID, value='password')
+    el = driver.find_element_by_id('password')
     el.send_keys(password)
 
     el.send_keys(Keys.ENTER)
-    
+
     #选择是否在校
-    if atschool == 'Yes':
-        el = brower.find_element_by_xpath('/html/body/div[1]/div[1]/div/section/div[4]/ul/li[16]/div/div/div[1]/span[1]')
-        el.click()
-    else:
-        el = brower.find_element_by_xpath('/html/body/div[1]/div[1]/div/section/div[4]/ul/li[16]/div/div/div[2]/span[1]')
-        el.click()
-
-    #显示所在地选择框
-    brower.execute_script("document.getElementsByName(\"ip\")[0].style.display = 'block';")
-
-    #选择位置
-    el = brower.find_element_by_xpath('/html/body/div[1]/div[1]/div/section/div[4]/ul/li[21]/div/div/select[1]')
-    S = Select(el)
-    S.select_by_value(province)
-
-    el = brower.find_element_by_xpath('/html/body/div[1]/div[1]/div/section/div[4]/ul/li[21]/div/div/select[2]')
-    S = Select(el).select_by_value(city)
-
-    el = brower.find_element_by_xpath('/html/body/div[1]/div[1]/div/section/div[4]/ul/li[21]/div/div/select[3]')
-    S = Select(el).select_by_value(district)
-
-    #选择家人是否有恙
-    el = brower.find_element_by_xpath('/html/body/div[1]/div[1]/div/section/div[4]/ul/li[23]/div/div/div[2]/span[1]')
+    # if atschool == 'Yes':
+    #     el = driver.find_element_by_xpath('/html/body/div[1]/div[1]/div/section/div[4]/ul/li[16]/div/div/div[1]/span[1]')
+    #     el.click()
+    # else:
+    #     el = driver.find_element_by_xpath('/html/body/div[1]/div[1]/div/section/div[4]/ul/li[16]/div/div/div[2]/span[1]')
+    #     el.click()
+    el = driver.find_element(by=By.XPATH, value='/html/body/div[1]/div[1]/div/section/div[4]/ul/li[4]/div/div/div[1]/span[1]')
     el.click()
 
+    #获取位置
+    el = driver.find_element(by=By.XPATH, value='/html/body/div[1]/div[1]/div/section/div[4]/ul/li[9]/div/input')
+    el.click()
+
+    sleep(5)
+    
     #选择个人承诺
-    el = brower.find_element_by_xpath('/html/body/div[1]/div[1]/div/section/div[4]/ul/li[35]/div/div/div/span[1]')
+    el = driver.find_element(by=By.XPATH, value='/html/body/div[1]/div[1]/div/section/div[4]/ul/li[26]/div/div/div/span[1]')
     el.click()
 
     #提交
-    el = brower.find_element(by=By.XPATH, value='/html/body/div[1]/div[1]/div/section/div[5]/div/a')
+    el = driver.find_element(by=By.XPATH, value='/html/body/div[1]/div[1]/div/section/div[5]/div/a')
     el.click()
-
+    
     #确认提交
     try:
-        el = brower.find_element(by=By.XPATH, value='/html/body/div[3]/div/div[2]/div[2]')
+        el = driver.find_element(by=By.XPATH, value='/html/body/div[4]/div/div[2]/div[2]')
         el.click()
     except:
         requests.post(url, json = {
@@ -91,6 +98,7 @@ try:
             },
             "msgtype":"text"
         })
+        print("Fail")
     else:
         requests.post(url, json = {
             "text": {
@@ -99,7 +107,7 @@ try:
             "msgtype":"text"
         })
 
-    brower.quit()
+    driver.quit()
 except:
     requests.post(url, json = {
         "text": {
