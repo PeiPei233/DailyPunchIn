@@ -27,7 +27,7 @@ jobs:
         pip install -r requirements.txt
     - name: Punch In
       run: |
-        sudo dpkg -i google*.deb
+        sudo apt install google*.deb
         sudo cp -p ./chromedriver /usr/bin/
         chmod -R 777 /usr/bin/chromedriver
         python ./FuckZJUnCovPunchIn.py 1${{secrets.USERNAME}} 2${{secrets.PASSWORD}} 3${{secrets.URL}} 4${{secrets.LATITUDE}} 5${{secrets.LONGTITUDE}} 6${{secrets.ATSCHOOL}}
